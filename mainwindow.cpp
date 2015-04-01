@@ -28,17 +28,12 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_startButton_clicked()
 {
-    QString fileName = ui->fileNameTextbox->toPlainText();
+    std::string inputFileName = ui->fileNameTextbox->toPlainText().toStdString();
+    std::string outputFilename = ui->outputFilenameEdit->toPlainText().toStdString();
 
-    char* cstr;
-    std::string fname = fileName.toStdString();
-    cstr = new char [fname.size()+1];
-    strcpy( cstr, fname.c_str() );
+    std::string cutSize = ui->cutSizeEdit->toPlainText().toStdString();
+    std::string overlapSize = ui->cutSizeEdit->toPlainText().toStdString();
+    std::string leeway = ui->leewayEdit->toPlainText().toStdString();
 
-    char fakeParam[] = "fake";
-    //char fakeParam2[] = "/Users/drew/projects/SeamCut/bin/Debug/forest1.jpg";
-    char *fakeargv[] = { fakeParam, cstr, NULL };
-    int fakeargc = 2;
-
-    seamcut(fakeargc, fakeargv);
+    seamcut(inputFileName, outputFilename, stoi(cutSize), stoi(overlapSize), stoi(leeway));
 }

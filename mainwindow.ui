@@ -59,6 +59,9 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="plainText">
+     <string>100</string>
+    </property>
    </widget>
    <widget class="QPlainTextEdit" name="overlapSizeEdit">
     <property name="geometry">
@@ -68,6 +71,9 @@
       <width>104</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="plainText">
+     <string>500</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -100,13 +106,62 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>120</y>
+      <y>170</y>
       <width>115</width>
       <height>32</height>
      </rect>
     </property>
     <property name="text">
      <string>Start cut</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="outputFilenameEdit">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>140</y>
+      <width>411</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>140</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Output file</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>110</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Leeway</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="leewayEdit">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>110</y>
+      <width>104</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="plainText">
+     <string>50</string>
     </property>
    </widget>
   </widget>

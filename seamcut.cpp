@@ -44,28 +44,15 @@ int cutImages(Mat A, Mat B);
 GraphType buildGraph(Mat A, Mat B);
 void buildImages(Mat A, Mat B, int overlap_width, int cutSize, int xoffset, Mat leftmostSection, int extraRowsCut);
 
-int seamcut(int argc, char **argv)
+int seamcut(std::string inputFile, std::string outputFile, int cutSize, int overlap, int leeway)
 {
-    if(argc < 2) {
-        cout << "./SeamCut img1.jpg [optional: #cols to remove]" << endl;
-        return 0;
-    }
-
-    Mat A = imread(argv[1]);
+    Mat A = imread(inputFile);
     assert(A.data);
 
     int minFlow = 1000000; // some high number. This is bad programming, should set to first flow or look for better structure
     int minFlowIndex = 0;
-    int leeway = 40;
-    int overlap = 500;
 
-    int cutSize = 500;
-    if(argc == 3) {
-        cutSize = atoi(argv[2]);
-        cout << "cutting image by " << atoi(argv[2]) << endl;
-    }
-
-    for(int i=0; i < 100; i++) {
+    for(int i=0; i < leeway; i++) {
         Mat roiLeft(A, Rect(0, 0, overlap, A.rows));
         Mat left = roiLeft.clone();
 
