@@ -15,16 +15,30 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::on_selectFileButton_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"", tr("Image Files (*.png *.jpg *.bmp)"));
+    ui->fileNameTextbox->setText(tr("%1").arg(fileName));
+}
+
 void MainWindow::on_pushButton_clicked()
 {
-    // QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"", tr("Image Files (*.png *.jpg *.bmp)"));
-
-    char fakeParam[] = "fake";
-    char fakeParam2[] = "/Users/drew/projects/SeamCut/bin/Debug/forest1.jpg";
-    char *fakeargv[] = { fakeParam, fakeParam2, NULL };
-    int fakeargc = 2;
-    seamcut(fakeargc, fakeargv);
-
     qApp->quit();
 }
 
+void MainWindow::on_startButton_clicked()
+{
+    QString fileName = ui->fileNameTextbox->toPlainText();
+
+    char* cstr;
+    std::string fname = fileName.toStdString();
+    cstr = new char [fname.size()+1];
+    strcpy( cstr, fname.c_str() );
+
+    char fakeParam[] = "fake";
+    //char fakeParam2[] = "/Users/drew/projects/SeamCut/bin/Debug/forest1.jpg";
+    char *fakeargv[] = { fakeParam, cstr, NULL };
+    int fakeargc = 2;
+
+    seamcut(fakeargc, fakeargv);
+}

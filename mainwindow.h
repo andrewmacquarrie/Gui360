@@ -18,6 +18,10 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_selectFileButton_clicked();
+
+    void on_startButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
