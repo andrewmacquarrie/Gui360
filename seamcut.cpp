@@ -42,7 +42,7 @@ typedef Graph<int,int,int> GraphType;
 
 int cutImages(Mat A, Mat B);
 GraphType buildGraph(Mat A, Mat B);
-void buildImages(Mat A, Mat B, int overlap_width, int cutSize, int xoffset, Mat leftmostSection, int extraRowsCut);
+void buildImages(Mat A, Mat B, int overlap_width, int cutSize, int xoffset, Mat leftmostSection, int extraRowsCut, std::string outputFile);
 
 int seamcut(std::string inputFile, std::string outputFile, int cutSize, int overlap, int leeway)
 {
@@ -79,7 +79,7 @@ int seamcut(std::string inputFile, std::string outputFile, int cutSize, int over
     int offset = A.cols - overlap - cutSize - minFlowIndex;
     Mat roiRight(A, Rect(offset, 0, overlap, A.rows));
     Mat right = roiRight.clone();
-    buildImages(right, left, overlap, cutSize, 0, A, minFlowIndex); // content from left should be on the right in final image
+    buildImages(right, left, overlap, cutSize, 0, A, minFlowIndex, outputFile); // content from left should be on the right in final image
 
     return 0;
 }
@@ -94,7 +94,7 @@ int cutImages(Mat A, Mat B) {
     return flow;
 }
 
-void buildImages(Mat A, Mat B, int overlap_width, int cutSize, int xoffset, Mat leftmostSection, int extraRowsCut) {
+void buildImages(Mat A, Mat B, int overlap_width, int cutSize, int xoffset, Mat leftmostSection, int extraRowsCut, std::string outputFile) {
     GraphType g = buildGraph(A, B);
 
     Mat graphcut;
@@ -150,7 +150,7 @@ void buildImages(Mat A, Mat B, int overlap_width, int cutSize, int xoffset, Mat 
     wantedAreaOfMain.copyTo(finalImage(Rect(0, 0, wantedAreaOfMain.cols, wantedAreaOfMain.rows)));
     graphcut.copyTo(finalImage(Rect(wantedAreaOfMain.cols, 0, graphcut.cols, graphcut.rows)));
 
-    imwrite("finalImage.jpg", finalImage);
+    imwrite(outputFile, finalImage);
 }
 
 GraphType buildGraph(Mat A, Mat B) {
