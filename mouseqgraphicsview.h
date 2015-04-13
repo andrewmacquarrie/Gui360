@@ -18,6 +18,8 @@ class MouseQGraphicsView : public QGraphicsView
 
     QStatusBar *statusBar;
     QString picFileName;
+    std::string editing;
+
     QGraphicsScene *m_scene;
 
 
@@ -27,7 +29,8 @@ class MouseQGraphicsView : public QGraphicsView
 
     private:
     int m_click;
-    QPoint clickPoint;
+    QPoint cutStart;
+    QPoint cutEnd;
 };
 
 

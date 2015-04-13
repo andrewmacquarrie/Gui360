@@ -18,7 +18,12 @@ MouseQGraphicsView::MouseQGraphicsView(QWidget *parent) :
 
 void MouseQGraphicsView::mousePressEvent(QMouseEvent * e)
 {
-    clickPoint = e->pos();
+    if(editing == "start") {
+        cutStart = e->pos();
+        //cutEnd = e->pos();
+    } else if (editing == "end") {
+        cutEnd = e->pos();
+    }
     drawScene();
 }
 
@@ -31,7 +36,7 @@ void MouseQGraphicsView::drawScene()
     // scene->addText("bogotobogo.com", QFont("Arial", 20) );
     this->setScene(m_scene);
 
-    QGraphicsRectItem* item1 = new QGraphicsRectItem(0,0,clickPoint.x(),clickPoint.y());
+    QGraphicsRectItem* item1 = new QGraphicsRectItem(cutStart.x(),0,cutEnd.x() - cutStart.x(),scaledPic.height());
     item1->setBrush(QBrush(Qt::red));
     m_scene->addItem(item1);
 

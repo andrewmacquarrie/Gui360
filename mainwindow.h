@@ -27,6 +27,10 @@ private slots:
 
     void on_loadImageButton_clicked();
 
+    void on_radioCutStart_clicked();
+
+    void on_radioCutEnd_clicked();
+
 private:
     Ui::MainWindow *ui;
 

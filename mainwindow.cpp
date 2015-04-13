@@ -9,11 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //centralWidget()->setAttribute(Qt::WA_TransparentForMouseEvents);
-    setMouseTracking(true);
-
     ui->graphicsView->statusBar = this->statusBar();
     ui->graphicsView->m_scene = new QGraphicsScene(this);
+    ui->graphicsView->editing = "start";
 }
 
 MainWindow::~MainWindow()
@@ -43,4 +41,14 @@ void MainWindow::on_loadImageButton_clicked()
     ui->graphicsView->picFileName = fileName;
     ui->graphicsView->drawScene();
     inputFileName = fileName;
+}
+
+void MainWindow::on_radioCutStart_clicked()
+{
+    ui->graphicsView->editing = "start";
+}
+
+void MainWindow::on_radioCutEnd_clicked()
+{
+    ui->graphicsView->editing = "end";
 }
