@@ -18,10 +18,22 @@ MouseQGraphicsView::MouseQGraphicsView(QWidget *parent) :
 
 void MouseQGraphicsView::mousePressEvent(QMouseEvent * e)
 {
-    int xPos = e->x();
-    int yPos = e->y();
+    clickPoint = e->pos();
+    drawScene();
+}
 
-    this->statusBar->showMessage(QString("Mouse move (%1,%2)").arg(xPos).arg(yPos));
+void MouseQGraphicsView::drawScene()
+{
+    QPixmap pic = QPixmap(picFileName);
+    QSize imgHolderSize(size().width() - 2, size().height() - 2); // buffer needed or has scroll bar
+    QPixmap scaledPic = pic.scaled(imgHolderSize,  Qt::KeepAspectRatio);
+    m_scene->addPixmap(scaledPic);
+    // scene->addText("bogotobogo.com", QFont("Arial", 20) );
+    this->setScene(m_scene);
+
+    QGraphicsRectItem* item1 = new QGraphicsRectItem(0,0,clickPoint.x(),clickPoint.y());
+    item1->setBrush(QBrush(Qt::red));
+    m_scene->addItem(item1);
 
 //    if ( !m_click ) {
 //        QGraphicsView::mousePressEvent(e);

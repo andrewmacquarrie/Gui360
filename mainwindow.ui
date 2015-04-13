@@ -14,29 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="selectFileButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>11</y>
-      <width>115</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Select image</string>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="fileNameTextbox">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>11</y>
-      <width>411</width>
-      <height>21</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
@@ -175,7 +152,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>80</y>
+      <y>60</y>
       <width>500</width>
       <height>250</height>
      </rect>
@@ -184,8 +161,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="loadImageButton">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>40</y>
+      <x>30</x>
+      <y>10</y>
       <width>115</width>
       <height>32</height>
      </rect>
@@ -193,6 +170,51 @@ p, li { white-space: pre-wrap; }
     <property name="text">
      <string>Load image</string>
     </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>320</y>
+      <width>281</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Editing</string>
+    </property>
+    <widget class="QRadioButton" name="radioCutStart">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>30</y>
+       <width>102</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Cut start</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioCutEnd">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>60</y>
+       <width>102</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Cut end</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

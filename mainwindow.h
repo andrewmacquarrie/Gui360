@@ -23,8 +23,6 @@ public:
 private slots:
     void on_pushButton_clicked();
 
-    void on_selectFileButton_clicked();
-
     void on_startButton_clicked();
 
     void on_loadImageButton_clicked();
@@ -32,6 +30,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    QString inputFileName;
 
     QGraphicsScene *scene;
 

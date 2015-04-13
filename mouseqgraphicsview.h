@@ -14,15 +14,20 @@ class MouseQGraphicsView : public QGraphicsView
     public:
     //MouseQGraphicsView(QGraphicsScene *scene, QWidget *parent = 0);
     MouseQGraphicsView(QWidget *parent = 0);
+    void drawScene();
+
     QStatusBar *statusBar;
+    QString picFileName;
+    QGraphicsScene *m_scene;
+
 
 
     public slots:
     void mousePressEvent(QMouseEvent * e);
 
     private:
-    QGraphicsScene *m_scene;
     int m_click;
+    QPoint clickPoint;
 };
 
 
