@@ -44,10 +44,22 @@ int cutImages(Mat A, Mat B);
 GraphType buildGraph(Mat A, Mat B);
 void buildImages(Mat A, Mat B, int overlap_width, int cutSize, int xoffset, Mat leftmostSection, int extraRowsCut, std::string outputFile);
 
-int seamcut(std::string inputFile, std::string outputFile, int cutSize, int overlap, int leeway)
+int seamcut(std::string inputFile, std::string outputFile, int cutSize, int overlap, int leeway, int startColumn)
 {
     Mat A = imread(inputFile);
     assert(A.data);
+
+    Mat B = A.clone();
+    int farRightIndex = startColumn + cutSize + overlap;
+
+    Mat roiL(A, Rect(farRightIndex, 0, A.cols - farRightIndex, A.rows));
+    roiL.copyTo(B(Rect(0, 0, roiL.cols, roiL.rows)));
+
+    Mat roiR(A, Rect(0, 0, farRightIndex, A.rows));
+    roiR.copyTo(B(Rect(roiL.cols, 0, farRightIndex, A.rows))); // ? should be farRightIndex?
+
+    imshow("B", B);
+    A = B;
 
     int minFlow = 1000000; // some high number. This is bad programming, should set to first flow or look for better structure
     int minFlowIndex = 0;

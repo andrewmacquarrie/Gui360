@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>554</width>
-    <height>316</height>
+    <height>568</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,8 +40,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>210</y>
+      <x>440</x>
+      <y>480</y>
       <width>115</width>
       <height>32</height>
      </rect>
@@ -53,8 +53,8 @@
    <widget class="QPlainTextEdit" name="cutSizeEdit">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>50</y>
+      <x>120</x>
+      <y>340</y>
       <width>104</width>
       <height>20</height>
      </rect>
@@ -66,8 +66,8 @@
    <widget class="QPlainTextEdit" name="overlapSizeEdit">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>80</y>
+      <x>120</x>
+      <y>370</y>
       <width>104</width>
       <height>20</height>
      </rect>
@@ -79,8 +79,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>50</y>
+      <x>50</x>
+      <y>340</y>
       <width>59</width>
       <height>16</height>
      </rect>
@@ -92,8 +92,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>38</x>
-      <y>80</y>
+      <x>28</x>
+      <y>370</y>
       <width>81</width>
       <height>20</height>
      </rect>
@@ -105,8 +105,8 @@
    <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>170</y>
+      <x>110</x>
+      <y>460</y>
       <width>115</width>
       <height>32</height>
      </rect>
@@ -118,8 +118,8 @@
    <widget class="QTextEdit" name="outputFilenameEdit">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>140</y>
+      <x>120</x>
+      <y>430</y>
       <width>411</width>
       <height>21</height>
      </rect>
@@ -135,8 +135,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>140</y>
+      <x>40</x>
+      <y>430</y>
       <width>71</width>
       <height>20</height>
      </rect>
@@ -148,8 +148,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>110</y>
+      <x>60</x>
+      <y>400</y>
       <width>51</width>
       <height>20</height>
      </rect>
@@ -161,14 +161,37 @@ p, li { white-space: pre-wrap; }
    <widget class="QPlainTextEdit" name="leewayEdit">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>110</y>
+      <x>120</x>
+      <y>400</y>
       <width>104</width>
       <height>20</height>
      </rect>
     </property>
     <property name="plainText">
-     <string>50</string>
+     <string>10</string>
+    </property>
+   </widget>
+   <widget class="MouseQGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>80</y>
+      <width>500</width>
+      <height>250</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="loadImageButton">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>40</y>
+      <width>115</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Load image</string>
     </property>
    </widget>
   </widget>
@@ -193,6 +216,13 @@ p, li { white-space: pre-wrap; }
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>MouseQGraphicsView</class>
+   <extends>QGraphicsView</extends>
+   <header>mouseqgraphicsview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

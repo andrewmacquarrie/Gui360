@@ -3,6 +3,11 @@
 
 #include <QMainWindow>
 
+#include <QDialog>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsItem>
+
 namespace Ui {
 class MainWindow;
 }
@@ -22,8 +27,14 @@ private slots:
 
     void on_startButton_clicked();
 
+    void on_loadImageButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+
+
+    QGraphicsScene *scene;
+
 };
 
 #endif // MAINWINDOW_H

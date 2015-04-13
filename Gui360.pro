@@ -18,12 +18,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     seamcut.cpp \
     maxflow/graph.cpp \
-    maxflow/maxflow.cpp
+    maxflow/maxflow.cpp \
+    mouseqgraphicsview.cpp
 
 HEADERS  += mainwindow.h \
     maxflow/block.h \
     maxflow/graph.h \
-    seamcut.h
+    seamcut.h \
+    mouseqgraphicsview.h
 
 FORMS    += mainwindow.ui
 
