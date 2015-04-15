@@ -33,7 +33,7 @@ void MainWindow::on_startButton_clicked()
     std::string outputFilename = ui->outputFilenameEdit->toPlainText().toStdString();
 
     std::string cutSize = ui->cutSizeEdit->toPlainText().toStdString();
-    std::string overlapSize = ui->cutSizeEdit->toPlainText().toStdString();
+    std::string overlapSize = ui->overlapSizeEdit->toPlainText().toStdString();
     std::string leeway = ui->leewayEdit->toPlainText().toStdString();
     std::string cutStart = ui->cutStartEdit->toPlainText().toStdString();
 

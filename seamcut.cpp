@@ -50,15 +50,17 @@ int seamcut(std::string inputFile, std::string outputFile, int cutSize, int over
     assert(A.data);
 
     Mat B = A.clone();
-    int farRightIndex = startColumn + cutSize + overlap;
+    int farRightIndex = startColumn + cutSize;
 
     Mat roiL(A, Rect(farRightIndex, 0, A.cols - farRightIndex, A.rows));
     roiL.copyTo(B(Rect(0, 0, roiL.cols, roiL.rows)));
 
+    //imshow("Moved RHS", B);
+
     Mat roiR(A, Rect(0, 0, farRightIndex, A.rows));
     roiR.copyTo(B(Rect(roiL.cols, 0, farRightIndex, A.rows))); // ? should be farRightIndex?
 
-    imshow("B", B);
+    //imshow("B", B);
     A = B;
 
     int minFlow = 1000000; // some high number. This is bad programming, should set to first flow or look for better structure
