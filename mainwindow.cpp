@@ -35,8 +35,9 @@ void MainWindow::on_startButton_clicked()
     std::string cutSize = ui->cutSizeEdit->toPlainText().toStdString();
     std::string overlapSize = ui->cutSizeEdit->toPlainText().toStdString();
     std::string leeway = ui->leewayEdit->toPlainText().toStdString();
+    std::string cutStart = ui->cutStartEdit->toPlainText().toStdString();
 
-    seamcut(inputFileName.toStdString(), outputFilename, stoi(cutSize), stoi(overlapSize), stoi(leeway), 6000);
+    seamcut(inputFileName.toStdString(), outputFilename, stoi(cutSize), stoi(overlapSize), stoi(leeway), stoi(cutStart));
 }
 
 void MainWindow::on_loadImageButton_clicked()
@@ -74,4 +75,9 @@ void MainWindow::updateValues()
     QString asStr = QString::fromStdString(std::to_string((int) cutSizeInImageTerms));
     ui->cutSizeEdit->clear();
     ui->cutSizeEdit->insertPlainText(asStr);
+
+    double startFraction = (double) xStart / (double) ui->graphicsView->width();
+    double cutStartInImageTerms = ((double )pic.size().width()) * startFraction;
+    ui->cutStartEdit->clear();
+    ui->cutStartEdit->insertPlainText(QString::fromStdString(std::to_string((int) cutStartInImageTerms)));
 }
