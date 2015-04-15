@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "qfiledialog.h"
 #include "seamcut.h"
+#include "editingmode.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,9 +10,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->graphicsView->statusBar = this->statusBar();
-    ui->graphicsView->m_scene = new QGraphicsScene(this);
-    ui->graphicsView->editing = "start";
+    MouseQGraphicsView* view = ui->graphicsView;
+
+    view->statusBar = this->statusBar();
+    view->m_scene = new QGraphicsScene(this);
+    view->editing = EditingMode::cutStart;
+    connect(view, SIGNAL(dataReady()), this, SLOT(updateValues()));
 }
 
 MainWindow::~MainWindow()
@@ -45,10 +49,29 @@ void MainWindow::on_loadImageButton_clicked()
 
 void MainWindow::on_radioCutStart_clicked()
 {
-    ui->graphicsView->editing = "start";
+    ui->graphicsView->editing = EditingMode::cutStart;
 }
 
 void MainWindow::on_radioCutEnd_clicked()
 {
-    ui->graphicsView->editing = "end";
+    ui->graphicsView->editing = EditingMode::cutEnd;
+}
+
+void MainWindow::updateValues()
+{
+    int xStart = ui->graphicsView->cutStart.x();
+    int xEnd = ui->graphicsView->cutEnd.x();
+
+    int cutSize = xEnd - xStart;
+
+    if(cutSize < 1) {
+        return;
+    }
+
+    double fraction = (double) cutSize / (double) ui->graphicsView->width();
+    QPixmap pic = QPixmap(inputFileName); // TODO: this is rubbsih. Should store img size
+    double cutSizeInImageTerms = ((double )pic.size().width()) * fraction;
+    QString asStr = QString::fromStdString(std::to_string((int) cutSizeInImageTerms));
+    ui->cutSizeEdit->clear();
+    ui->cutSizeEdit->insertPlainText(asStr);
 }

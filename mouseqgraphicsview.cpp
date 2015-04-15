@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "qfiledialog.h"
 #include "mainwindow.h"
+#include "editingmode.h"
 
 //MouseQGraphicsView::MouseQGraphicsView(QGraphicsScene *scene, QWidget *parent) :
 //    QGraphicsView(parent),
@@ -14,17 +15,22 @@
 MouseQGraphicsView::MouseQGraphicsView(QWidget *parent) :
     QGraphicsView(parent)
 {
+    cutStart = QPoint(0,0);
+    cutEnd = QPoint(0,this->height());
 }
 
 void MouseQGraphicsView::mousePressEvent(QMouseEvent * e)
 {
-    if(editing == "start") {
-        cutStart = e->pos();
-        //cutEnd = e->pos();
-    } else if (editing == "end") {
-        cutEnd = e->pos();
+    switch(editing) {
+        case EditingMode::cutStart : cutStart = e->pos();
+        case EditingMode::cutEnd : cutEnd = e->pos();
     }
+
     drawScene();
+
+    if(editing == EditingMode::cutEnd) {
+        emit dataReady();
+    }
 }
 
 void MouseQGraphicsView::drawScene()

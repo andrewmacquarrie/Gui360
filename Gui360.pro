@@ -25,7 +25,8 @@ HEADERS  += mainwindow.h \
     maxflow/block.h \
     maxflow/graph.h \
     seamcut.h \
-    mouseqgraphicsview.h
+    mouseqgraphicsview.h \
+    editingmode.h
 
 FORMS    += mainwindow.ui
 

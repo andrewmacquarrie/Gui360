@@ -18,19 +18,21 @@ class MouseQGraphicsView : public QGraphicsView
 
     QStatusBar *statusBar;
     QString picFileName;
-    std::string editing;
+    int editing;
 
     QGraphicsScene *m_scene;
 
+    QPoint cutStart;
+    QPoint cutEnd;
 
+    signals:
+    void dataReady();
 
     public slots:
     void mousePressEvent(QMouseEvent * e);
 
     private:
     int m_click;
-    QPoint cutStart;
-    QPoint cutEnd;
 };
 
 
