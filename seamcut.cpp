@@ -119,14 +119,26 @@ void buildImages(Mat A, Mat B, int overlap_width, int cutSize, int xoffset, Mat 
     graphcut = no_graphcut.clone();
     graphcut_and_cutline = no_graphcut.clone();
 
+    cout << "A depth " << A.depth() << " A channels " << A.channels() << endl;
+
+    Mat left = Mat::zeros( Size(A.cols, A.rows), CV_8UC3 );
+    Mat right = Mat::zeros( Size(B.cols, B.rows), CV_8UC3 );
+
+    Mat leftB = Mat::zeros( Size(B.cols, B.rows), CV_8UC3 );
+    Mat rightB = Mat::zeros( Size(B.cols, B.rows), CV_8UC3 );
+
     int idx = 0;
     for(int y=0; y < A.rows; y++) {
         for(int x=0; x < overlap_width; x++) {
             if(g.what_segment(idx) == GraphType::SOURCE) {
                 graphcut.at<Vec3b>(y, xoffset + x) = A.at<Vec3b>(y, xoffset + x);
+                left.at<Vec3b>(y, xoffset + x) = A.at<Vec3b>(y, xoffset + x);
+                leftB.at<Vec3b>(y, xoffset + x) = Vec3b(255,255,255);
             }
             else {
                 graphcut.at<Vec3b>(y, xoffset + x) = B.at<Vec3b>(y, x);
+                right.at<Vec3b>(y, xoffset + x) = B.at<Vec3b>(y, x);
+                rightB.at<Vec3b>(y, xoffset + x) = Vec3b(255,255,255);
             }
 
             graphcut_and_cutline.at<Vec3b>(y, xoffset + x) =  graphcut.at<Vec3b>(y, xoffset + x);
@@ -165,6 +177,31 @@ void buildImages(Mat A, Mat B, int overlap_width, int cutSize, int xoffset, Mat 
     graphcut.copyTo(finalImage(Rect(wantedAreaOfMain.cols, 0, graphcut.cols, graphcut.rows)));
 
     imwrite(outputFile, finalImage);
+
+
+    Mat wholeWithBlack = Mat::zeros( Size(A.cols + B.cols + wantedAreaOfMain.cols, A.rows), CV_8UC3 );
+    Mat wholeWithBlackMask = Mat::zeros( Size(A.cols + B.cols + wantedAreaOfMain.cols, A.rows), CV_8UC3 );
+
+    right.copyTo(wholeWithBlack(Rect(0, 0, right.cols, right.rows)));
+    wantedAreaOfMain.copyTo(wholeWithBlack(Rect(right.cols, 0, wantedAreaOfMain.cols, wantedAreaOfMain.rows)));
+    left.copyTo(wholeWithBlack(Rect(right.cols + wantedAreaOfMain.cols, 0, left.cols, left.rows)));
+
+    rightB.copyTo(wholeWithBlackMask(Rect(0, 0, right.cols, right.rows)));
+    Mat centreWhite = Mat(Size(wantedAreaOfMain.cols,wantedAreaOfMain.rows),CV_8UC3);
+    for(int y=0; y < centreWhite.rows; y++) {
+        for(int x=0; x < centreWhite.cols; x++) {
+            centreWhite.at<Vec3b>(y, x) = Vec3b(255,255,255);
+        }
+    }
+    centreWhite.copyTo(wholeWithBlackMask(Rect(right.cols, 0, wantedAreaOfMain.cols, wantedAreaOfMain.rows)));
+    leftB.copyTo(wholeWithBlackMask(Rect(right.cols + wantedAreaOfMain.cols, 0, left.cols, left.rows)));
+
+    //imwrite("left.jpg", left);
+    //imwrite("right.jpg", right);
+    //imwrite("main.jpg", wantedAreaOfMain);
+    imwrite("wholeWithBlack.jpg", wholeWithBlack);
+    imwrite("wholeWithBlackMask.jpg", wholeWithBlackMask);
+
 }
 
 GraphType buildGraph(Mat A, Mat B) {
