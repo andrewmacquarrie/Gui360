@@ -168,6 +168,31 @@ void buildImages(Mat A, Mat B, int overlap_width, int cutSize, int xoffset, Mat 
 }
 
 GraphType buildGraph(Mat A, Mat B) {
+    Mat ALab;
+    Mat BLab;
+
+    cvtColor(A, ALab, CV_RGB2Lab);
+    cvtColor(B, BLab, CV_RGB2Lab);
+
+    for(int y=0; y < ALab.rows; y++) {
+        for(int x=0; x < ALab.cols; x++) {
+            Vec3b color = ALab.at<Vec3b>(Point(x,y));
+            color(0) = 50; // mid illumination
+            ALab.at<Vec3b>(Point(x,y)) = color;
+        }
+    }
+
+    for(int y=0; y < BLab.rows; y++) {
+        for(int x=0; x < BLab.cols; x++) {
+            Vec3b color = BLab.at<Vec3b>(Point(x,y));
+            color(0) = 50; // mid illumination
+            BLab.at<Vec3b>(Point(x,y)) = color;
+        }
+    }
+
+    A = ALab;
+    B = BLab;
+
     int overlap_width = A.cols;
     int xoffset = 0;
 
