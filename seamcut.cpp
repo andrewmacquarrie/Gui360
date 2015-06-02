@@ -159,7 +159,7 @@ void buildImages(Mat A, Mat B, int overlap_width, int cutSize, int xoffset, Mat 
 
     //imshow("main area", wantedAreaOfMain);
     //waitKey(0);
-
+    imshow("cut", graphcut_and_cutline);
 
     wantedAreaOfMain.copyTo(finalImage(Rect(0, 0, wantedAreaOfMain.cols, wantedAreaOfMain.rows)));
     graphcut.copyTo(finalImage(Rect(wantedAreaOfMain.cols, 0, graphcut.cols, graphcut.rows)));
@@ -180,6 +180,8 @@ GraphType buildGraph(Mat A, Mat B) {
         g.add_node();
     }
 
+    // me: only top and bottom need source/sink (we're trying to find a cut through height of img, not labelling per pixel!)
+
     // Se   t the source/sink weights
     for(int y=0; y < A.rows; y++) {
         g.add_tweights(y*overlap_width + 0, INT_MAX, 0);
@@ -195,8 +197,12 @@ GraphType buildGraph(Mat A, Mat B) {
             Vec3b b0 = B.at<Vec3b>(y, x);
             double cap0 = norm(a0, b0);
 
+            // each node gets connected to the one below and to the right.
+            // Forwards and backward links are the same cost
+            // here could specify an extra weight
+
             // Add right edge
-            if(x+1 < overlap_width) {
+            if(x+1 < overlap_width) { // whole main section except right edge
                 Vec3b a1 = A.at<Vec3b>(y, xoffset + x + 1);
                 Vec3b b1 = B.at<Vec3b>(y, x + 1);
 
@@ -206,7 +212,7 @@ GraphType buildGraph(Mat A, Mat B) {
             }
 
             // Add bottom edge
-            if(y+1 < A.rows) {
+            if(y+1 < A.rows) { // whole main section except bottom edge
                 Vec3b a2 = A.at<Vec3b>(y+1, xoffset + x);
                 Vec3b b2 = B.at<Vec3b>(y+1, x);
 
